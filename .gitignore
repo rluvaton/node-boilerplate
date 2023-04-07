@@ -3,5 +3,4 @@ node_modules/
 .env
 !files-for-tests/.env
 logs/
-lib/
 coverage/
