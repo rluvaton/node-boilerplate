@@ -1,5 +1,3 @@
-import { randomUUID } from 'node:crypto';
-
 import { fastify as Fastify } from 'fastify';
 
 import { logger } from '../lib/logger.js';
