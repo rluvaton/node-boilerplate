@@ -3,7 +3,7 @@ import { AddressInfo } from 'node:net';
 
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-import { setupHttpServer, startHttpServer } from '../../src/http/server.js';
+import { setupHttpServer, startHttpServer } from '../../src/lib/http/server.js';
 import { logger } from '../../src/lib/logger.js';
 
 interface BaseHttpInitParam {

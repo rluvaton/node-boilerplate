@@ -1,6 +1,5 @@
 import HttpStatusCode from 'http-status';
-import { expect } from 'vitest';
-import { EchoHttpClient } from './test/echo-http-client';
+import { EchoHttpClient } from './test/echo-http-client.js';
 
 describe('Response format', () => {
   let searchHttpClient: EchoHttpClient;

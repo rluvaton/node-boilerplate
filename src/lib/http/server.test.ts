@@ -1,10 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { MockedFunction } from 'vitest';
-
-import { BaseHttpClient } from '../../test/helpers/base-http-client.js';
-import { setupServerAndModify } from '../../test/helpers/fastify-helper.js';
-import context from '../lib/context';
+import { setupServerAndModify } from '../../../test/helpers/fastify-helper.js';
+import context from '../context.js';
 
 // More tests exists under the test folder in here
 describe('server', () => {
@@ -27,6 +23,7 @@ describe('server', () => {
     expect(routeCalledWithContext).toHaveBeenCalledTimes(1);
 
     // Get the request from the call
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const [{ requestId }] = routeCalledWithContext.mock.lastCall!;
     expect(routeCalledWithContext).toHaveBeenCalledWith({
       requestId,

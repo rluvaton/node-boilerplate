@@ -1,6 +1,6 @@
-import context from './context';
+import context from './context.js';
 import pino, { Logger as UnderlyingLogger, LoggerOptions } from 'pino';
-import config from './config';
+import config from './config.js';
 
 type MergeFn<LogContext> = (logContext: LogContext | undefined, currentLogMeta: any) => object;
 
@@ -91,7 +91,6 @@ export class Logger {
 
   public static cloneAndAppendContextData<LogContext extends Record<string | number | symbol, any> = object>(
     logContext?: LogContext,
-    mergeFn?: MergeFn<LogContext>,
   ) {
     return Logger.mergeContextData(logContext, { ...(context.getAll<any>() || {}) });
   }

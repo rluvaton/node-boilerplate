@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 
-import { BaseHttpClient } from '../../../test/helpers/base-http-client.js';
-import { setupServerAndModify } from '../../../test/helpers/fastify-helper.js';
-import { REQUEST_ID_HEADER } from '../request-id';
+import { BaseHttpClient } from '../../../../test/helpers/base-http-client.js';
+import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js';
+import { REQUEST_ID_HEADER } from '../request-id.js';
 
 describe('request-id', () => {
   const route = `/${faker.datatype.uuid()}`;

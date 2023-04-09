@@ -1,4 +1,4 @@
-import { setupHttpServer, startHttpServer } from './http/server.js';
+import { setupHttpServer, startHttpServer } from './lib/http/server.js';
 
 export async function main(): Promise<void> {
   await setupHttpServer();

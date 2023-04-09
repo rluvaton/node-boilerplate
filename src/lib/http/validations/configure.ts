@@ -4,9 +4,9 @@ import type { ZodTypeProvider } from './types.js';
 import { validationCompiler } from './validation-compiler.js';
 
 export function configureValidations(fastify: OurFastifyInstance): OurFastifyInstance {
-	// Configure Zod validation
-	fastify.setValidatorCompiler(validationCompiler);
-	fastify.setSerializerCompiler(serializerCompiler);
+  // Configure Zod validation
+  fastify.setValidatorCompiler(validationCompiler);
+  fastify.setSerializerCompiler(serializerCompiler);
 
-	return fastify.withTypeProvider<ZodTypeProvider>();
+  return fastify.withTypeProvider<ZodTypeProvider>();
 }

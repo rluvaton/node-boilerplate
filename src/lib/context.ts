@@ -1,7 +1,5 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
 
-type Fn<FnReturnType> = (...args: any[]) => FnReturnType;
-
 const storage = new AsyncLocalStorage<any>();
 
 export function get<Key, Value>(key: Key): Value | undefined {

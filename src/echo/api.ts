@@ -1,4 +1,4 @@
-import { OurFastifyInstance } from '../http/types.js';
+import type { OurFastifyInstance } from '../lib/http/types.js';
 import {
   PostExampleRequestBody,
   PostExampleRequestType,
