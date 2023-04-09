@@ -35,5 +35,5 @@ jobs:
       - name: Build prod
         run: npm run build
 
-      - name: Build prod
-        run: npm run built:tests
+      - name: Build tests
+        run: npm run build:tests
