@@ -5,7 +5,7 @@ import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js
 import { REQUEST_ID_HEADER } from '../request-id.js'
 
 describe('request-id', () => {
-  const route = `/${faker.datatype.uuid()}`
+  const route = `/${faker.string.uuid()}`
 
   describe('when the response is successful', () => {
     let client: BaseHttpClient
@@ -51,7 +51,7 @@ describe('request-id', () => {
       })
 
       it('should use the request id from header', async () => {
-        const requestId = faker.datatype.uuid()
+        const requestId = faker.string.uuid()
 
         await client.axios.request({
           url: route,
@@ -67,7 +67,7 @@ describe('request-id', () => {
       })
 
       it('should add to the response headers the request id from header', async () => {
-        const requestId = faker.datatype.uuid()
+        const requestId = faker.string.uuid()
         const response = await client.axios.request({
           url: route,
           method,

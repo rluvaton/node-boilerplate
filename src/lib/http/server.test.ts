@@ -5,8 +5,8 @@ import context from '../context.js'
 // More tests exists under the test folder in here
 describe('server', () => {
   it('in HTTP route current context should path, method and request id', async () => {
-    const route = `/${faker.datatype.uuid()}`
-    const routeCalledWithContext = vi.fn<[{ context?: any; requestId: string }], void>()
+    const route = `/${faker.string.uuid()}`
+    const routeCalledWithContext = vi.fn<(_: { context?: any; requestId: string }) => void>()
 
     const client = await setupServerAndModify((fastify) => {
       fastify.get(route, (req, reply) => {

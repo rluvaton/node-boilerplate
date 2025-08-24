@@ -18,8 +18,6 @@ export async function setupHttpServer() {
     // Generate Request ID or use the one that already exist
     requestIdHeader: REQUEST_ID_HEADER,
     genReqId: generateRequestId,
-
-    ignoreTrailingSlash: true,
   })
   fastify = configureValidations(fastify)
 

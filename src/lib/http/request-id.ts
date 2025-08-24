@@ -16,7 +16,7 @@ export default fp(
     })
   },
   {
-    fastify: '4.x',
+    fastify: '5.x',
     name: 'fastify-request-id',
 
     // Don't encapsulate so we will have the request id on the root

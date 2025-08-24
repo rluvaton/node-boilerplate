@@ -6,7 +6,7 @@ import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js
 
 describe('request/response assertion', () => {
   it('should return Bad Request when request body does not match the body schema', async () => {
-    const route = `/${faker.datatype.uuid()}`
+    const route = `/${faker.string.uuid()}`
 
     const User = z.object({
       id: z.number(),
@@ -33,12 +33,14 @@ describe('request/response assertion', () => {
     })
 
     expect(response).toHaveBadRequestStatus()
-    expect(response).toHaveBodyMatchObject({ message: 'Validation error: Expected number, received string at "id"' })
+    expect(response).toHaveBodyMatchObject({
+      message: 'Validation error: Invalid input: expected number, received string at "id"',
+    })
   })
 
   it('should return Server Error when response body does not match the response schema', async () => {
     const routeCalled = vi.fn()
-    const route = `/${faker.datatype.uuid()}`
+    const route = `/${faker.string.uuid()}`
 
     const User = z.object({
       name: z.string(),

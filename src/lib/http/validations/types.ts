@@ -1,6 +1,8 @@
 import { FastifyTypeProvider } from 'fastify'
-import z, { ZodTypeAny } from 'zod'
+import z, { input, output, ZodTypeAny } from 'zod'
+import { $ZodType } from 'zod/v4/core'
 
 export interface ZodTypeProvider extends FastifyTypeProvider {
-  output: this['input'] extends ZodTypeAny ? z.infer<this['input']> : never
+  validator: this['schema'] extends $ZodType ? output<this['schema']> : unknown
+  serializer: this['schema'] extends $ZodType ? input<this['schema']> : unknown
 }
