@@ -7,3 +7,7 @@
 import * as matchers from 'jest-extended';
 
 expect.extend(matchers);
+
+// add all expect-http-client-matchers matchers
+import { matchers as expectMatchers } from 'expect-http-client-matchers';
+expect.extend(expectMatchers);

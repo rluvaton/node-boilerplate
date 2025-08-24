@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker';
-import HttpStatusCode from 'http-status';
 import type { ZodAny } from 'zod';
 import { z } from 'zod';
 
@@ -33,8 +32,8 @@ describe('request/response assertion', () => {
       id: 'not a number',
     });
 
-    expect(response.status).toEqual(HttpStatusCode.BAD_REQUEST);
-    expect(response.data).toMatchObject({ message: 'Validation error: Expected number, received string at "id"' });
+    expect(response).toHaveBadRequestStatus();
+    expect(response).toHaveBodyMatchObject({message: 'Validation error: Expected number, received string at "id"' });
   });
 
   it('should return Server Error when response body does not match the response schema', async () => {
@@ -71,6 +70,6 @@ describe('request/response assertion', () => {
 
     expect(routeCalled).toHaveBeenCalled();
 
-    expect(response.status).toEqual(HttpStatusCode.INTERNAL_SERVER_ERROR);
+    expect(response).toHaveInternalServerErrorStatus();
   });
 });

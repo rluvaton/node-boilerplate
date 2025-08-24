@@ -1,4 +1,3 @@
-import HttpStatusCode from 'http-status';
 import { EchoHttpClient } from './test/echo-http-client.js';
 
 describe('Response format', () => {
@@ -14,14 +13,12 @@ describe('Response format', () => {
         name: 'hello world',
       });
 
-      expect(response).toMatchObject({
-        status: HttpStatusCode.OK,
-        data: {
-          type: 'post',
-          body: {
-            name: 'hello world',
-            quote: 'N/A',
-          },
+      expect(response).toBeSuccessful();
+      expect(response).toHaveBodyEquals({
+        type: 'post',
+        body: {
+          name: 'hello world',
+          quote: 'N/A',
         },
       });
     });

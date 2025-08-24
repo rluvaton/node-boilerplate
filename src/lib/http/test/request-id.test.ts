@@ -47,7 +47,7 @@ describe('request-id', () => {
           data: body,
         });
 
-        expect(response.headers[REQUEST_ID_HEADER]).toBeString();
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, expect.any(String));
       });
 
       it('should use the request id from header', async () => {
@@ -77,7 +77,7 @@ describe('request-id', () => {
           },
         });
 
-        expect(response.headers[REQUEST_ID_HEADER]).toEqual(requestId);
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, requestId);
       });
     });
   });
@@ -105,8 +105,8 @@ describe('request-id', () => {
           },
         );
 
-        expect(response.status).toBeGreaterThanOrEqual(400);
-        expect(response.headers[REQUEST_ID_HEADER]).toEqual(expectedRequestId);
+        expect(response).not.toBeSuccessful();
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId);
       });
 
       it('request validation failure', async () => {
@@ -141,8 +141,8 @@ describe('request-id', () => {
           },
         );
 
-        expect(response.status).toBeGreaterThanOrEqual(400);
-        expect(response.headers[REQUEST_ID_HEADER]).toEqual(expectedRequestId);
+        expect(response).not.toBeSuccessful();
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId);
       });
 
       it('response validation failure', async () => {
@@ -175,8 +175,8 @@ describe('request-id', () => {
           headers: requestId ? { [REQUEST_ID_HEADER]: requestId } : {},
         });
 
-        expect(response.status).toBeGreaterThanOrEqual(400);
-        expect(response.headers[REQUEST_ID_HEADER]).toEqual(expectedRequestId);
+        expect(response).not.toBeSuccessful();
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId);
       });
     },
   );

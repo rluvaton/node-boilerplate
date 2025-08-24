@@ -27,6 +27,7 @@
     "test",
     "typings"
   ],
+  "files": ["vitest.d.ts"],
   "exclude": [
     "node_modules",
     "dist"
