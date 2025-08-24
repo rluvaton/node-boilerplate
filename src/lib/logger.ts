@@ -1,24 +1,24 @@
-import context from './context.js';
-import pino, { Logger as UnderlyingLogger, LoggerOptions } from 'pino';
-import config from './config.js';
+import pino, { LoggerOptions, Logger as UnderlyingLogger } from 'pino'
+import config from './config.js'
+import context from './context.js'
 
-type MergeFn<LogContext> = (logContext: LogContext | undefined, currentLogMeta: any) => object;
+type MergeFn<LogContext> = (logContext: LogContext | undefined, currentLogMeta: any) => object
 
 export class Logger {
-  public static topLevelInstance: Logger = new Logger();
-  private readonly underlyingLogger: UnderlyingLogger;
+  public static topLevelInstance: Logger = new Logger()
+  private readonly underlyingLogger: UnderlyingLogger
 
   // private as the only way we want to create new logger instances is by using the child function
   private constructor(underlyingLogger?: UnderlyingLogger, logPrefix = '') {
     if (underlyingLogger) {
-      this.underlyingLogger = underlyingLogger;
-      return;
+      this.underlyingLogger = underlyingLogger
+      return
     }
 
-    const pinoOptions: LoggerOptions = {};
+    const pinoOptions: LoggerOptions = {}
 
     if (logPrefix) {
-      pinoOptions.msgPrefix = logPrefix + ' ';
+      pinoOptions.msgPrefix = logPrefix + ' '
     }
 
     if (config.logger.pretty) {
@@ -27,31 +27,31 @@ export class Logger {
         options: {
           colorize: true,
         },
-      };
+      }
     }
-    this.underlyingLogger = pino(pinoOptions);
+    this.underlyingLogger = pino(pinoOptions)
   }
 
   public error<LogContext extends Record<string | number | symbol, any> = object>(
     msg: string,
     logContext?: LogContext,
   ) {
-    this.underlyingLogger.error(Logger.mergeContextData(logContext, context.getAll()), msg);
+    this.underlyingLogger.error(Logger.mergeContextData(logContext, context.getAll()), msg)
   }
 
   public warn<LogContext extends Record<string | number | symbol, any> = object>(msg: string, logContext?: LogContext) {
-    this.underlyingLogger.warn(Logger.mergeContextData(logContext, context.getAll()), msg);
+    this.underlyingLogger.warn(Logger.mergeContextData(logContext, context.getAll()), msg)
   }
 
   public info<LogContext extends Record<string | number | symbol, any> = object>(msg: string, logContext?: LogContext) {
-    this.underlyingLogger.info(Logger.mergeContextData(logContext, context.getAll()), msg);
+    this.underlyingLogger.info(Logger.mergeContextData(logContext, context.getAll()), msg)
   }
 
   public debug<LogContext extends Record<string | number | symbol, any> = object>(
     msg: string,
     logContext?: LogContext,
   ) {
-    this.underlyingLogger.debug(Logger.mergeContextData(logContext, context.getAll()), msg);
+    this.underlyingLogger.debug(Logger.mergeContextData(logContext, context.getAll()), msg)
   }
 
   public child(bindings: Record<string, unknown>, logPrefix = ''): Logger {
@@ -59,7 +59,7 @@ export class Logger {
       this.underlyingLogger.child(bindings, {
         msgPrefix: logPrefix,
       }),
-    );
+    )
   }
 
   private static mergeContextData<LogContext extends Record<string | number | symbol, any> = object>(
@@ -69,16 +69,16 @@ export class Logger {
   ) {
     // Fast path:
     if (!logContext) {
-      return parentContext;
+      return parentContext
     }
 
     if (!parentContext) {
-      return logContext;
+      return logContext
     }
 
     // Slow path:
     if (mergeFn) {
-      return mergeFn(logContext, parentContext);
+      return mergeFn(logContext, parentContext)
     }
 
     return {
@@ -86,19 +86,19 @@ export class Logger {
 
       // Log context have higher priority than parent context
       ...logContext,
-    };
+    }
   }
 
   public static cloneAndAppendContextData<LogContext extends Record<string | number | symbol, any> = object>(
     logContext?: LogContext,
   ) {
-    return Logger.mergeContextData(logContext, { ...(context.getAll<any>() || {}) });
+    return Logger.mergeContextData(logContext, { ...(context.getAll<any>() || {}) })
   }
 }
 
-export const logger = Logger.topLevelInstance;
+export const logger = Logger.topLevelInstance
 
 // This is exported just for convenience - so we don't have to do this when we only want to create child logger:
 // import { logger as baseLogger } from '../logger';
 // const logger = baseLogger.child({}, 'my function')
-export const baseLogger = Logger.topLevelInstance;
+export const baseLogger = Logger.topLevelInstance

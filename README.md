@@ -5,8 +5,7 @@
 - Fastify
 - TypeScript
 - Vitest
-- ESLint
-- Prettier
+- Biome
 - Husky
 - CommitLint
 - CI in GitHub Action

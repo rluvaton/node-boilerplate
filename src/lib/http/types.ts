@@ -1,8 +1,8 @@
-import type { IncomingMessage, Server, ServerResponse } from 'node:http';
+import type { IncomingMessage, Server, ServerResponse } from 'node:http'
 
-import { FastifyBaseLogger, FastifyInstance } from 'fastify';
+import { FastifyBaseLogger, FastifyInstance } from 'fastify'
 
-import type { ZodTypeProvider } from './validations/index.js';
+import type { ZodTypeProvider } from './validations/index.js'
 
 export type OurFastifyInstance = FastifyInstance<
   Server,
@@ -10,4 +10,4 @@ export type OurFastifyInstance = FastifyInstance<
   ServerResponse,
   FastifyBaseLogger,
   ZodTypeProvider
->;
+>

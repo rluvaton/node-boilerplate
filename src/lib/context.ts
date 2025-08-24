@@ -1,32 +1,32 @@
-import { AsyncLocalStorage } from 'node:async_hooks';
+import { AsyncLocalStorage } from 'node:async_hooks'
 
-const storage = new AsyncLocalStorage<any>();
+const storage = new AsyncLocalStorage<any>()
 
 export function get<Key, Value>(key: Key): Value | undefined {
-  return storage.getStore()?.[key];
+  return storage.getStore()?.[key]
 }
 
 export function getAll<T>(): T | undefined {
-  return storage.getStore();
+  return storage.getStore()
 }
 
 export function set<Key, Value>(key: Key, value: Value) {
-  const store = storage.getStore();
+  const store = storage.getStore()
 
-  store && (store[key] = value);
+  store && (store[key] = value)
 }
 
 export function setMulti<T>(object: Partial<T>) {
-  const store = storage.getStore();
+  const store = storage.getStore()
 
-  Object.assign(store, object);
+  Object.assign(store, object)
 }
 
 export function run<StoreValue, FnReturnType>(
   fn: (...args: any[]) => FnReturnType,
   initialValue: StoreValue = {} as StoreValue,
 ): FnReturnType {
-  return storage.run(initialValue, () => fn());
+  return storage.run(initialValue, () => fn())
 }
 
 export default {
@@ -35,4 +35,4 @@ export default {
   set,
   setMulti,
   run,
-};
+}

@@ -1,24 +1,24 @@
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker'
 
-import { BaseHttpClient } from '../../../../test/helpers/base-http-client.js';
-import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js';
-import { REQUEST_ID_HEADER } from '../request-id.js';
+import { BaseHttpClient } from '../../../../test/helpers/base-http-client.js'
+import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js'
+import { REQUEST_ID_HEADER } from '../request-id.js'
 
 describe('request-id', () => {
-  const route = `/${faker.datatype.uuid()}`;
+  const route = `/${faker.datatype.uuid()}`
 
   describe('when the response is successful', () => {
-    let client: BaseHttpClient;
-    const requestIdInRequest = vi.fn();
+    let client: BaseHttpClient
+    const requestIdInRequest = vi.fn()
 
     beforeAll(async () => {
       client = await setupServerAndModify((fastify) => {
         fastify.all(route, (req, reply) => {
-          requestIdInRequest(req.id);
-          reply.send({});
-        });
-      });
-    });
+          requestIdInRequest(req.id)
+          reply.send({})
+        })
+      })
+    })
 
     describe.each([
       ['GET', undefined],
@@ -34,24 +34,24 @@ describe('request-id', () => {
           url: route,
           method,
           data: body,
-        });
+        })
 
-        expect(requestIdInRequest).toHaveBeenCalledTimes(1);
-        expect(requestIdInRequest).toHaveBeenCalledWith(expect.any(String));
-      });
+        expect(requestIdInRequest).toHaveBeenCalledTimes(1)
+        expect(requestIdInRequest).toHaveBeenCalledWith(expect.any(String))
+      })
 
       it('should add to the response headers the request id that generated', async () => {
         const response = await client.axios.request({
           url: route,
           method,
           data: body,
-        });
+        })
 
-        expect(response).toHaveHeader(REQUEST_ID_HEADER, expect.any(String));
-      });
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, expect.any(String))
+      })
 
       it('should use the request id from header', async () => {
-        const requestId = faker.datatype.uuid();
+        const requestId = faker.datatype.uuid()
 
         await client.axios.request({
           url: route,
@@ -60,14 +60,14 @@ describe('request-id', () => {
           headers: {
             [REQUEST_ID_HEADER]: requestId,
           },
-        });
+        })
 
-        expect(requestIdInRequest).toHaveBeenCalledTimes(1);
-        expect(requestIdInRequest).toHaveBeenCalledWith(requestId);
-      });
+        expect(requestIdInRequest).toHaveBeenCalledTimes(1)
+        expect(requestIdInRequest).toHaveBeenCalledWith(requestId)
+      })
 
       it('should add to the response headers the request id from header', async () => {
-        const requestId = faker.datatype.uuid();
+        const requestId = faker.datatype.uuid()
         const response = await client.axios.request({
           url: route,
           method,
@@ -75,12 +75,12 @@ describe('request-id', () => {
           headers: {
             [REQUEST_ID_HEADER]: requestId,
           },
-        });
+        })
 
-        expect(response).toHaveHeader(REQUEST_ID_HEADER, requestId);
-      });
-    });
-  });
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, requestId)
+      })
+    })
+  })
 
   describe.each([
     ['exists in the headers', '801d9251-5916-4b26-85d9-7a33aaa86c9d', '801d9251-5916-4b26-85d9-7a33aaa86c9d'],
@@ -91,8 +91,8 @@ describe('request-id', () => {
       // We test here if it fails on each step of the fastify lifecycle
       it('parsing request failure', async () => {
         const client = await setupServerAndModify((fastify) => {
-          fastify.post(route, async () => ({}));
-        });
+          fastify.post(route, async () => ({}))
+        })
 
         const response = await client.axios.post(
           route,
@@ -103,11 +103,11 @@ describe('request-id', () => {
               ...(requestId ? { [REQUEST_ID_HEADER]: requestId } : {}),
             },
           },
-        );
+        )
 
-        expect(response).not.toBeSuccessful();
-        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId);
-      });
+        expect(response).not.toBeSuccessful()
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId)
+      })
 
       it('request validation failure', async () => {
         const client = await setupServerAndModify((fastify) => {
@@ -128,8 +128,8 @@ describe('request-id', () => {
               },
             },
             async () => ({}),
-          );
-        });
+          )
+        })
 
         const response = await client.axios.post(
           route,
@@ -139,11 +139,11 @@ describe('request-id', () => {
           {
             headers: requestId ? { [REQUEST_ID_HEADER]: requestId } : {},
           },
-        );
+        )
 
-        expect(response).not.toBeSuccessful();
-        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId);
-      });
+        expect(response).not.toBeSuccessful()
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId)
+      })
 
       it('response validation failure', async () => {
         const client = await setupServerAndModify((fastify) => {
@@ -168,16 +168,16 @@ describe('request-id', () => {
 
             // Not returning the name on purpose to fail the response validation
             async () => ({}),
-          );
-        });
+          )
+        })
 
         const response = await client.axios.get(route, {
           headers: requestId ? { [REQUEST_ID_HEADER]: requestId } : {},
-        });
+        })
 
-        expect(response).not.toBeSuccessful();
-        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId);
-      });
+        expect(response).not.toBeSuccessful()
+        expect(response).toHaveHeader(REQUEST_ID_HEADER, expectedRequestId)
+      })
     },
-  );
-});
+  )
+})

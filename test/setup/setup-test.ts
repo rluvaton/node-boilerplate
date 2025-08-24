@@ -4,10 +4,11 @@
 //
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import * as matchers from 'jest-extended';
+import * as matchers from 'jest-extended'
 
-expect.extend(matchers);
+expect.extend(matchers)
 
 // add all expect-http-client-matchers matchers
-import { matchers as expectMatchers } from 'expect-http-client-matchers';
-expect.extend(expectMatchers);
+import { matchers as expectMatchers } from 'expect-http-client-matchers'
+
+expect.extend(expectMatchers)

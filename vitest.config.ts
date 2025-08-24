@@ -1,8 +1,8 @@
-import * as inspector from 'node:inspector';
-import { defineConfig } from 'vitest/config';
+import * as inspector from 'node:inspector'
+import { defineConfig } from 'vitest/config'
 
-const DEBUG_MODE = inspector.url() !== undefined;
-const ONE_HOUR = 1000 * 60 * 60;
+const DEBUG_MODE = inspector.url() !== undefined
+const ONE_HOUR = 1000 * 60 * 60
 
 export default defineConfig({
   test: {
@@ -30,4 +30,4 @@ export default defineConfig({
 
     testTimeout: DEBUG_MODE ? ONE_HOUR : 5000,
   },
-} as any);
+} as any)

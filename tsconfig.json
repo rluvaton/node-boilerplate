@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es2022"
-    ],
+    "lib": ["es2022"],
     "module": "ES2022",
     "target": "es2022",
     "outDir": "dist",
@@ -22,16 +20,9 @@
     "strictNullChecks": true,
     "types": ["vitest/globals"]
   },
-  "include": [
-    "src",
-    "test",
-    "typings"
-  ],
+  "include": ["src", "test", "typings"],
   "files": ["vitest.d.ts"],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
+  "exclude": ["node_modules", "dist"],
   "ts-node": {
     "esm": true
   }

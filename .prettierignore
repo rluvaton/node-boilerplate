@@ -1,8 +1,0 @@
-**/dist
-**/coverage
-**/.vscode
-**/.idea
-**/.nyc_output
-**/.github
-**/node_modules
-package-lock.json
