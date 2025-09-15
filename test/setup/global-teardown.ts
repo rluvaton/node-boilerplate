@@ -11,17 +11,19 @@ process.env.NODE_ENV = 'test'
 const updatedPathEnv = { PATH: `${process.env.PATH}:/usr/local/bin` }
 
 async function globalTeardown() {
-  // Stop the docker-compose and remove it's data
-  await execa('docker-compose', ['-f', TEST_DOCKER_COMPOSE_FILE_NAME, 'down', '-v'], {
-    cwd: import.meta.dirname,
-    env: updatedPathEnv,
+  if (!process.env.CI) {
+    // Stop the docker-compose and remove it's data
+    await execa('docker-compose', ['-f', TEST_DOCKER_COMPOSE_FILE_NAME, 'down', '-v'], {
+      cwd: import.meta.dirname,
+      env: updatedPathEnv,
 
-    // Make it output to this process stdout / stderr
-    stdout: 'inherit',
-    stderr: 'inherit',
+      // Make it output to this process stdout / stderr
+      stdout: 'inherit',
+      stderr: 'inherit',
 
-    timeout: 60_000,
-  })
+      timeout: 60_000,
+    })
+  }
 }
 
 console.log('calling global teardown')
