@@ -5,11 +5,15 @@ import expectMatchers from 'expect-matchers'
 import each from 'jest-each'
 import jestExtendedMatchers from 'jest-extended'
 import Mocha, { Suite } from 'mocha'
+
+// @ts-ignore
 import sinonMatchers from 'sinon-jest-matchers'
 
+// @ts-ignore
 global.expect = expect
 
 const jestExtendedMatchersWithoutOverlapping = Object.assign({}, jestExtendedMatchers)
+// @ts-ignore
 delete jestExtendedMatchersWithoutOverlapping.toIncludeSameMembers
 expect.extend(jestExtendedMatchers)
 expect.extend(expectMatchers)

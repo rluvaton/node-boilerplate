@@ -7,7 +7,7 @@ import context from '../context.ts'
 describe('server', () => {
   it('in HTTP route current context should path, method and request id', async () => {
     const route = `/${faker.string.uuid()}`
-    const routeCalledWithContext = sinon.spy<(_: { context?: any; requestId: string }) => void>()
+    const routeCalledWithContext = sinon.spy<(_: { context?: any; requestId: string }) => void>(() => undefined)
 
     const client = await setupServerAndModify((fastify) => {
       fastify.get(route, (req, reply) => {
