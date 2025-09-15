@@ -2,8 +2,19 @@
   "name": "node-boilerplate",
   "version": "0.0.0-development",
   "description": "NodeJS boilerplate with TypeScript, Jest, ESLint, Prettier, Husky, CommitLint, CI in GitHub Action",
-  "keywords": ["boilerplate", "prettier", "eslint", "husky", "commitlint", "typescript", "fastify", "vitest"],
-  "files": ["lib"],
+  "keywords": [
+    "boilerplate",
+    "prettier",
+    "eslint",
+    "husky",
+    "commitlint",
+    "typescript",
+    "fastify",
+    "vitest"
+  ],
+  "files": [
+    "lib"
+  ],
   "type": "module",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -40,11 +51,12 @@
     "sinon": "^17.0.1",
     "sinon-jest-matchers": "^1.2.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "typescript": "^5.9.2"
   },
   "release": {
-    "branches": ["main"]
+    "branches": [
+      "main"
+    ]
   },
   "repository": {
     "type": "git",
