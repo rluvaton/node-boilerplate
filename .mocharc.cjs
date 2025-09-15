@@ -6,7 +6,6 @@ module.exports = {
 
     // TypeScript Support
     'ts-node/esm',
-    // "ts-node-esm/register",
 
     // Global Setup
     './test/setup/global-setup-and-teardown-mocha.ts',

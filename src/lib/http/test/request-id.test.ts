@@ -23,7 +23,7 @@ describe('request-id', () => {
     // Reset the spy history on `beforeEach` as it is not connected to a sandbox after the first test
     // (probably sinon#restore create a new sandbox, making spies that still exists and orphan)
     beforeEach(() => {
-      requestIdInRequest.resetHistory();
+      requestIdInRequest.resetHistory()
     })
 
     describe.each([
