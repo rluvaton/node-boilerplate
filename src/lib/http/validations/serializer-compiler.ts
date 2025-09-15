@@ -1,7 +1,7 @@
-import type { FastifySerializerCompiler } from 'fastify/types/schema.js'
+import type { FastifySerializerCompiler } from 'fastify/types/schema.ts'
 import type { ZodAny } from 'zod'
 
-import { ResponseValidationError } from './error.js'
+import { ResponseValidationError } from './error.ts'
 
 function resolveSchema(maybeSchema: ZodAny | { properties: ZodAny }): Pick<ZodAny, 'safeParse'> {
   if (maybeSchema.hasOwnProperty('safeParse')) {

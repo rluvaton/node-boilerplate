@@ -1,17 +1,18 @@
 import { faker } from '@faker-js/faker'
 
-import { BaseHttpClient } from '../../../../test/helpers/base-http-client.js'
-import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js'
-import { REQUEST_ID_HEADER } from '../request-id.js'
+import type { BaseHttpClient } from '../../../../test/helpers/base-http-client.ts'
+import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.ts'
+import { REQUEST_ID_HEADER } from '../request-id.ts'
+import sinon from 'sinon'
 
 describe('request-id', () => {
   const route = `/${faker.string.uuid()}`
 
   describe('when the response is successful', () => {
     let client: BaseHttpClient
-    const requestIdInRequest = vi.fn()
+    const requestIdInRequest = sinon.spy()
 
-    beforeAll(async () => {
+    before(async () => {
       client = await setupServerAndModify((fastify) => {
         fastify.all(route, (req, reply) => {
           requestIdInRequest(req.id)

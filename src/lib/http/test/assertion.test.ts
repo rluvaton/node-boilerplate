@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import type { ZodAny } from 'zod'
 import { z } from 'zod'
 
-import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js'
+import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.ts'
 
 describe('request/response assertion', () => {
   it('should return Bad Request when request body does not match the body schema', async () => {

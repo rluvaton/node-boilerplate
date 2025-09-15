@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
-import { setupServerAndModify } from '../../../test/helpers/fastify-helper.js'
-import context from '../context.js'
+import { setupServerAndModify } from '../../../test/helpers/fastify-helper.ts'
+import context from '../context.ts'
 
 // More tests exists under the test folder in here
 describe('server', () => {

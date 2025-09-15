@@ -1,10 +1,10 @@
-import type { OurFastifyInstance } from '../lib/http/types.js'
+import type { OurFastifyInstance } from '../lib/http/types.ts'
 import {
   PostExampleRequestBody,
-  PostExampleRequestType,
+  type PostExampleRequestType,
   PostExampleResponseBody,
-  PostExampleResponseType,
-} from './types.js'
+  type PostExampleResponseType,
+} from './types.ts'
 
 export async function echoApi(fastify: OurFastifyInstance) {
   fastify.all('/', async (request) => {
