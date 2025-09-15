@@ -1,0 +1,10 @@
+version: '3.8'
+
+name: node-boilerplate-test-setup
+
+services:
+  postgres:
+    image: postgres:16
+    ports:
+      # Not setting it to be 5432 so it won't bump with other Postgres instances that run on the dev machine
+      - "15432:5432"

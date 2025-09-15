@@ -1,5 +1,5 @@
-import { BaseHttpClient } from '../../../test/helpers/base-http-client.js'
-import { PostExampleRequestInputType, PostExampleResponseType } from '../types.js'
+import { BaseHttpClient } from '../../../test/helpers/base-http-client.ts'
+import type { PostExampleRequestInputType, PostExampleResponseType } from '../types.ts'
 
 export class EchoHttpClient extends BaseHttpClient {
   public async init(): Promise<this> {

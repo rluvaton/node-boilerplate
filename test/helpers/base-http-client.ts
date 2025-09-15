@@ -1,10 +1,10 @@
-import { Server } from 'node:http'
-import { AddressInfo } from 'node:net'
+import type { Server } from 'node:http'
+import type { AddressInfo } from 'node:net'
 
-import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import Axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
 
-import { setupHttpServer, startHttpServer } from '../../src/lib/http/server.js'
-import { logger } from '../../src/lib/logger.js'
+import { setupHttpServer, startHttpServer } from '../../src/lib/http/server.ts'
+import { logger } from '../../src/lib/logger.ts'
 
 interface BaseHttpInitParam {
   setupRoutes: boolean

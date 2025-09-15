@@ -1,8 +1,8 @@
-import { Method } from 'axios'
+import type { Method } from 'axios'
 
-import { getFastifyInstance, setupHttpServer } from '../../src/lib/http/server.js'
-import type { OurFastifyInstance } from '../../src/lib/http/types.js'
-import { BaseHttpClient } from './base-http-client.js'
+import { getFastifyInstance, setupHttpServer } from '../../src/lib/http/server.ts'
+import type { OurFastifyInstance } from '../../src/lib/http/types.ts'
+import { BaseHttpClient } from './base-http-client.ts'
 
 export type SupportedFastifyMethod = Exclude<Lowercase<Method>, 'purge' | 'unlink' | 'link'>
 

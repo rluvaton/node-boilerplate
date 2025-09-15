@@ -1,6 +1,7 @@
-import pino, { LoggerOptions, Logger as UnderlyingLogger } from 'pino'
-import config from './config.js'
-import context from './context.js'
+import type { LoggerOptions, Logger as UnderlyingLogger } from 'pino'
+import pino from 'pino'
+import config from './config.ts'
+import context from './context.ts'
 
 type MergeFn<LogContext> = (logContext: LogContext | undefined, currentLogMeta: any) => object
 
@@ -52,6 +53,9 @@ export class Logger {
     logContext?: LogContext,
   ) {
     this.underlyingLogger.debug(Logger.mergeContextData(logContext, context.getAll()), msg)
+  }
+  public async flush(): Promise<void> {
+    return new Promise<void>((resolve, reject) => this.underlyingLogger.flush((err) => (err ? reject(err) : resolve())))
   }
 
   public child(bindings: Record<string, unknown>, logPrefix = ''): Logger {

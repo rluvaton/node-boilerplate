@@ -1,7 +1,7 @@
-import type { OurFastifyInstance } from '../types.js'
-import { serializerCompiler } from './serializer-compiler.js'
-import type { ZodTypeProvider } from './types.js'
-import { validationCompiler } from './validation-compiler.js'
+import type { OurFastifyInstance } from '../types.ts'
+import { serializerCompiler } from './serializer-compiler.ts'
+import type { ZodTypeProvider } from './types.ts'
+import { validationCompiler } from './validation-compiler.ts'
 
 export function configureValidations(fastify: OurFastifyInstance): OurFastifyInstance {
   // Configure Zod validation

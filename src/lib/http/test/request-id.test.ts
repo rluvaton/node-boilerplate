@@ -1,23 +1,29 @@
 import { faker } from '@faker-js/faker'
-
-import { BaseHttpClient } from '../../../../test/helpers/base-http-client.js'
-import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js'
-import { REQUEST_ID_HEADER } from '../request-id.js'
+import sinon from 'sinon'
+import type { BaseHttpClient } from '../../../../test/helpers/base-http-client.ts'
+import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.ts'
+import { REQUEST_ID_HEADER } from '../request-id.ts'
 
 describe('request-id', () => {
   const route = `/${faker.string.uuid()}`
 
   describe('when the response is successful', () => {
     let client: BaseHttpClient
-    const requestIdInRequest = vi.fn()
+    let requestIdInRequest = sinon.spy()
 
-    beforeAll(async () => {
+    before(async () => {
       client = await setupServerAndModify((fastify) => {
         fastify.all(route, (req, reply) => {
           requestIdInRequest(req.id)
           reply.send({})
         })
       })
+    })
+
+    // Reset the spy history on `beforeEach` as it is not connected to a sandbox after the first test
+    // (probably sinon#restore create a new sandbox, making spies that still exists and orphan)
+    beforeEach(() => {
+      requestIdInRequest.resetHistory()
     })
 
     describe.each([
@@ -36,8 +42,8 @@ describe('request-id', () => {
           data: body,
         })
 
-        expect(requestIdInRequest).toHaveBeenCalledTimes(1)
-        expect(requestIdInRequest).toHaveBeenCalledWith(expect.any(String))
+        expect(requestIdInRequest).sinonToBeCalledTimes(1)
+        expect(requestIdInRequest).sinonToBeCalledWith(expect.any(String))
       })
 
       it('should add to the response headers the request id that generated', async () => {
@@ -62,8 +68,8 @@ describe('request-id', () => {
           },
         })
 
-        expect(requestIdInRequest).toHaveBeenCalledTimes(1)
-        expect(requestIdInRequest).toHaveBeenCalledWith(requestId)
+        expect(requestIdInRequest).sinonToBeCalledTimes(1)
+        expect(requestIdInRequest).sinonToBeCalledWith(requestId)
       })
 
       it('should add to the response headers the request id from header', async () => {

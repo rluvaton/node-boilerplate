@@ -18,10 +18,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
-    "types": ["vitest/globals"]
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true
   },
   "include": ["src", "test", "typings"],
-  "files": ["vitest.d.ts"],
+  "files": ["./typings/global.d.ts", "./typings/reset.d.ts"],
   "exclude": ["node_modules", "dist"],
   "ts-node": {
     "esm": true

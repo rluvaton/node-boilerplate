@@ -1,11 +1,11 @@
 import { fastify as Fastify } from 'fastify'
-import { echoApi } from '../../echo/api.js'
-import config from '../config.js'
-import * as context from '../context.js'
-import { logger } from '../logger.js'
-import requestIdPlugin, { generateRequestId, REQUEST_ID_HEADER } from './request-id.js'
-import type { OurFastifyInstance } from './types.js'
-import { configureValidations } from './validations/index.js'
+import { echoApi } from '../../echo/api.ts'
+import config from '../config.ts'
+import * as context from '../context.ts'
+import { logger } from '../logger.ts'
+import requestIdPlugin, { generateRequestId, REQUEST_ID_HEADER } from './request-id.ts'
+import type { OurFastifyInstance } from './types.ts'
+import { configureValidations } from './validations/index.ts'
 
 let fastify: OurFastifyInstance
 
