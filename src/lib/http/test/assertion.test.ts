@@ -3,6 +3,7 @@ import type { ZodAny } from 'zod'
 import { z } from 'zod'
 
 import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.ts'
+import sinon from 'sinon'
 
 describe('request/response assertion', () => {
   it('should return Bad Request when request body does not match the body schema', async () => {
@@ -39,7 +40,7 @@ describe('request/response assertion', () => {
   })
 
   it('should return Server Error when response body does not match the response schema', async () => {
-    const routeCalled = vi.fn()
+    const routeCalled = sinon.spy()
     const route = `/${faker.string.uuid()}`
 
     const User = z.object({
@@ -70,7 +71,7 @@ describe('request/response assertion', () => {
 
     const response = await client.axios.post(route, {})
 
-    expect(routeCalled).toHaveBeenCalled()
+    expect(routeCalled).sinonToBeCalled()
 
     expect(response).toHaveInternalServerErrorStatus()
   })

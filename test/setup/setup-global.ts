@@ -7,7 +7,7 @@ import jestExtendedMatchers from 'jest-extended'
 import Mocha, { Suite } from 'mocha'
 import sinonMatchers from 'sinon-jest-matchers'
 
-global.expect = expect;
+global.expect = expect
 
 const jestExtendedMatchersWithoutOverlapping = Object.assign({}, jestExtendedMatchers)
 delete jestExtendedMatchersWithoutOverlapping.toIncludeSameMembers
@@ -17,7 +17,6 @@ expect.extend(sinonMatchers)
 expect.extend(expectHttpMatchers)
 
 const { EVENT_FILE_PRE_REQUIRE } = Suite.constants
-
 
 const oldLoadFilesAsync = Mocha.prototype.loadFilesAsync
 Mocha.prototype.loadFilesAsync = function (...args) {
@@ -36,7 +35,6 @@ Mocha.prototype.loadFiles = function (...args) {
 function registerEach(suite: Suite) {
   // Register the `each`
   suite.on(EVENT_FILE_PRE_REQUIRE, (context) => {
-
     // @ts-ignore in case this called already
     if (context.it.each) {
       return
