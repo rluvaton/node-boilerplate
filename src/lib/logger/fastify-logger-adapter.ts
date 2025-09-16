@@ -11,7 +11,6 @@ export class FastifyLoggerAdapter implements FastifyBaseLogger {
   }
 
   public static default(options: LoggerOptions = {}): FastifyLoggerAdapter {
-    // Default info
     return new FastifyLoggerAdapter(Logger.topLevelInstanceWithOptions(options))
   }
 
