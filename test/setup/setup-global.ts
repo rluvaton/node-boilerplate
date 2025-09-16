@@ -72,7 +72,7 @@ faker.seed(globalSeed)
 console.log(`
 == Using faker seed: '${globalSeed}' ==
 
-If there are flaky tests you can set the seed in the setup-global.ts file - \`faker.seed(${globalSeed});\` 
+If there are flaky tests you can set the seed in the setup-global.js file - \`faker.seed(${globalSeed});\` 
 and run all tests
 
 

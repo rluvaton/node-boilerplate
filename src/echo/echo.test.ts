@@ -1,4 +1,4 @@
-import { EchoHttpClient } from './test/echo-http-client.ts'
+import { EchoHttpClient } from './test/echo-http-client.js'
 
 describe('Response format', () => {
   let searchHttpClient: EchoHttpClient

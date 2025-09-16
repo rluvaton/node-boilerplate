@@ -18,13 +18,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
-    "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true
+    "allowImportingTsExtensions": false,
+    "emitDeclarationOnly": true,
+    "verbatimModuleSyntax": true
   },
   "include": ["src", "test", "typings"],
   "files": ["./typings/global.d.ts", "./typings/reset.d.ts"],
-  "exclude": ["node_modules", "dist"],
-  "ts-node": {
-    "esm": true
-  }
+  "exclude": ["node_modules", "dist"]
 }

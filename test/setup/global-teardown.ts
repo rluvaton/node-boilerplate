@@ -1,5 +1,5 @@
 import { execa } from 'execa'
-import { TEST_DOCKER_COMPOSE_FILE_NAME } from './tests-constants.ts'
+import { TEST_DOCKER_COMPOSE_FILE_NAME } from './tests-constants.js'
 
 process.env.NODE_ENV = 'test'
 

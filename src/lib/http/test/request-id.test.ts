@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker'
 import sinon from 'sinon'
-import type { BaseHttpClient } from '../../../../test/helpers/base-http-client.ts'
-import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.ts'
-import { REQUEST_ID_HEADER } from '../request-id.ts'
+import { z } from 'zod'
+import type { BaseHttpClient } from '../../../../test/helpers/base-http-client.js'
+import { setupServerAndModify } from '../../../../test/helpers/fastify-helper.js'
+import { REQUEST_ID_HEADER } from '../request-id.js'
 
 describe('request-id', () => {
   const route = `/${faker.string.uuid()}`
@@ -122,15 +123,9 @@ describe('request-id', () => {
             {
               // Require name in the body
               schema: {
-                body: {
-                  type: 'object',
-                  properties: {
-                    name: {
-                      type: 'string',
-                    },
-                  },
-                  required: ['name'],
-                },
+                body: z.object({
+                  name: z.string(),
+                }),
               },
             },
             async () => ({}),
@@ -161,12 +156,9 @@ describe('request-id', () => {
                 response: {
                   200: {
                     type: 'object',
-                    properties: {
-                      name: {
-                        type: 'string',
-                      },
-                    },
-                    required: ['name'],
+                    properties: z.object({
+                      name: z.string(),
+                    }),
                   },
                 },
               },

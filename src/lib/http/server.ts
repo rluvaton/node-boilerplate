@@ -1,11 +1,12 @@
 import { fastify as Fastify } from 'fastify'
-import { echoApi } from '../../echo/api.ts'
-import config from '../config.ts'
-import * as context from '../context.ts'
-import { logger } from '../logger.ts'
-import requestIdPlugin, { generateRequestId, REQUEST_ID_HEADER } from './request-id.ts'
-import type { OurFastifyInstance } from './types.ts'
-import { configureValidations } from './validations/index.ts'
+import { echoApi } from '../../echo/api.js'
+import config from '../config.js'
+import * as context from '../context.js'
+import { FastifyLoggerAdapter } from '../logger/fastify-logger-adapter.js'
+import { baseLogger, logger } from '../logger/index.js'
+import requestIdPlugin, { generateRequestId, REQUEST_ID_HEADER } from './request-id.js'
+import type { OurFastifyInstance } from './types.js'
+import { configureValidations } from './validations/index.js'
 
 let fastify: OurFastifyInstance
 
@@ -18,6 +19,15 @@ export async function setupHttpServer() {
     // Generate Request ID or use the one that already exist
     requestIdHeader: REQUEST_ID_HEADER,
     genReqId: generateRequestId,
+    loggerInstance: FastifyLoggerAdapter.default({
+      serializers: {
+        req(request) {
+          return {
+            url: request.url,
+          }
+        },
+      },
+    }),
   })
   fastify = configureValidations(fastify)
 

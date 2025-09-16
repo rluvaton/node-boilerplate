@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test'
 
 import { execa } from 'execa'
 import isPortReachable from 'is-port-reachable'
-import { POSTGRES_TEST_PORT, TEST_DOCKER_COMPOSE_FILE_NAME } from './tests-constants.ts'
+import { POSTGRES_TEST_PORT, TEST_DOCKER_COMPOSE_FILE_NAME } from './tests-constants.js'
 
 // Adding the /user/local/bin as when running from WebStorm, some PATH variable may not be configured properly
 // which would make WebStorm not pick them - meaning that your PATH won't be the same as the WebStorm Local PATH -
