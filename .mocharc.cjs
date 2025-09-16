@@ -1,11 +1,10 @@
 module.exports = {
   extension: ['ts'],
   spec: ['src/**/*.test.ts', 'test/**/*.test.ts'],
+  import: 'tsx/esm',
+
   require: [
     './test/setup/mocha-env.js',
-
-    // TypeScript Support
-    'ts-node/esm',
 
     // Global Setup
     './test/setup/global-setup-and-teardown-mocha.ts',

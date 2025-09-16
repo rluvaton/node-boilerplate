@@ -3,4 +3,4 @@ process.env.NODE_ENV = 'test'
 process.env.TZ = 'UTC'
 
 // Turn off type checking
-// process.env.TS_NODE_TRANSPILE_ONLY = 'true';
+// process.env.js_NODE_TRANSPILE_ONLY = 'true';

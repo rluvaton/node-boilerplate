@@ -1,8 +1,8 @@
 // biome-ignore assist/source/organizeImports: The imports order are important
 import { faker } from '@faker-js/faker'
-import { globalSeed } from './setup-global.ts'
+import { globalSeed } from './setup-global.js'
 import sinon from 'sinon'
-import { logger } from '../../src/lib/logger.ts'
+import { logger } from '../../src/lib/logger/index.js'
 
 let currentSeed: number
 
@@ -26,9 +26,9 @@ export const mochaHooks = {
       console.log('')
       console.log('How to use:')
       console.log('1. Copy the global and test seed seed from the console (global seed is used before going all tests')
-      console.log('2. Go to `setup-global.ts`')
+      console.log('2. Go to `setup-global.js`')
       console.log(`3. Change the \`globalSeed\` variable value to ${globalSeed}`)
-      console.log('4. Go to `setup-tests.ts`')
+      console.log('4. Go to `setup-tests.js`')
       console.log(`4. Change the \`seedNumberToReproduce\` value to be ${currentSeed}`)
       console.log('5. Run a SINGLE test (each test have different seed)')
       console.log('')

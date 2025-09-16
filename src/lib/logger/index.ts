@@ -1,26 +1,28 @@
-import type { LoggerOptions, Logger as UnderlyingLogger } from 'pino'
+import type { ChildLoggerOptions, LoggerOptions, Logger as UnderlyingLogger } from 'pino'
 import pino from 'pino'
-import config from './config.ts'
-import context from './context.ts'
+import config from '../config.js'
+import context from '../context.js'
 
 type MergeFn<LogContext> = (logContext: LogContext | undefined, currentLogMeta: any) => object
+
+export type LoggerLogFn = <LogContext extends Record<string | number | symbol, any> = object>(
+  msg: string,
+  logContext?: LogContext,
+) => void
 
 export class Logger {
   public static topLevelInstance: Logger = new Logger()
   private readonly underlyingLogger: UnderlyingLogger
+  private childrenFlush: (() => Promise<void>)[] = []
 
   // private as the only way we want to create new logger instances is by using the child function
-  private constructor(underlyingLogger?: UnderlyingLogger, logPrefix = '') {
+  private constructor(underlyingLogger?: UnderlyingLogger, options: LoggerOptions = {}) {
     if (underlyingLogger) {
       this.underlyingLogger = underlyingLogger
       return
     }
 
-    const pinoOptions: LoggerOptions = {}
-
-    if (logPrefix) {
-      pinoOptions.msgPrefix = logPrefix + ' '
-    }
+    const pinoOptions: LoggerOptions = options
 
     if (config.logger.pretty) {
       pinoOptions.transport = {
@@ -31,6 +33,10 @@ export class Logger {
       }
     }
     this.underlyingLogger = pino(pinoOptions)
+  }
+
+  public static topLevelInstanceWithOptions(options: LoggerOptions): Logger {
+    return new Logger(undefined, options)
   }
 
   public error<LogContext extends Record<string | number | symbol, any> = object>(
@@ -54,16 +60,33 @@ export class Logger {
   ) {
     this.underlyingLogger.debug(Logger.mergeContextData(logContext, context.getAll()), msg)
   }
+
   public async flush(): Promise<void> {
+    // Flush all the children first
+    for (const childFlush of this.childrenFlush) {
+      try {
+        await childFlush()
+      } catch {
+        // Ignore errors from children flush
+      }
+    }
     return new Promise<void>((resolve, reject) => this.underlyingLogger.flush((err) => (err ? reject(err) : resolve())))
   }
 
-  public child(bindings: Record<string, unknown>, logPrefix = ''): Logger {
-    return new Logger(
+  public child(bindings: Record<string, unknown>, logPrefix = '', loggerOptions: ChildLoggerOptions = {}): Logger {
+    const child = new Logger(
       this.underlyingLogger.child(bindings, {
+        ...loggerOptions,
         msgPrefix: logPrefix,
       }),
     )
+    this.childrenFlush.push(child.flush.bind(child))
+
+    return child
+  }
+
+  public logPrefix(): string | undefined {
+    return this.underlyingLogger.msgPrefix
   }
 
   private static mergeContextData<LogContext extends Record<string | number | symbol, any> = object>(

@@ -3,8 +3,8 @@ import type { AddressInfo } from 'node:net'
 
 import Axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
 
-import { setupHttpServer, startHttpServer } from '../../src/lib/http/server.ts'
-import { logger } from '../../src/lib/logger.ts'
+import { setupHttpServer, startHttpServer } from '../../src/lib/http/server.js'
+import { logger } from '../../src/lib/logger/index.js'
 
 interface BaseHttpInitParam {
   setupRoutes: boolean

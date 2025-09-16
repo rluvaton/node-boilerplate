@@ -1,15 +1,15 @@
-import type { FastifySerializerCompiler } from 'fastify/types/schema.ts'
+import type { FastifySerializerCompiler } from 'fastify/types/schema.js'
 import type { ZodAny } from 'zod'
 
-import { ResponseValidationError } from './error.ts'
+import { ResponseValidationError } from './error.js'
 
-function resolveSchema(maybeSchema: ZodAny | { properties: ZodAny }): Pick<ZodAny, 'safeParse'> {
-  if (maybeSchema.hasOwnProperty('safeParse')) {
+export function resolveSchema(maybeSchema: ZodAny | { properties: ZodAny }): Pick<ZodAny, 'safeParse' | 'parse'> {
+  if (maybeSchema.hasOwnProperty('safeParse') && maybeSchema.hasOwnProperty('parse')) {
     return maybeSchema as ZodAny
   }
 
   if (maybeSchema.hasOwnProperty('properties')) {
-    return (maybeSchema as { properties: ZodAny }).properties
+    return resolveSchema((maybeSchema as { properties: ZodAny }).properties)
   }
 
   throw new Error(`Invalid schema passed: ${JSON.stringify(maybeSchema)}`)

@@ -1,2 +1,2 @@
-export { configureValidations } from './configure.ts'
-export type { ZodTypeProvider } from './types.ts'
+export { configureValidations } from './configure.js'
+export type { ZodTypeProvider } from './types.js'
