@@ -3,6 +3,8 @@ import type { Bindings, ChildLoggerOptions } from 'fastify/types/logger'
 import type { LevelWithSilentOrString, LogFn, LoggerOptions } from 'pino'
 import { Logger, type LoggerLogFn } from './index.js'
 
+type SecondParameters<T extends (...args: any) => any> = T extends (arg: any, ...args: infer P2) => any ? P2 : never
+
 export class FastifyLoggerAdapter implements FastifyBaseLogger {
   #inner: Logger
 
@@ -20,7 +22,7 @@ export class FastifyLoggerAdapter implements FastifyBaseLogger {
   }
 
   #createLogFn(logFn: LoggerLogFn): LogFn {
-    return (obj, ...args) => {
+    return (obj: Parameters<LogFn>[0], ...args: SecondParameters<LogFn>) => {
       let message = ''
 
       if (args.length === 0) {
